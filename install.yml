@@ -1,0 +1,96 @@
+--- 
+- name: Default Packages 
+  connection: local
+  hosts: localhost
+  tasks:
+    - name: Apt packages
+      apt: 
+       name="{{item}}"
+       state=present
+      become: yes
+      with_items:
+        - vim 
+        - chromium-browser
+        - terminator
+        - zsh
+        - curl 
+        - wget 
+        - git
+        - python3
+        - python-virtualenv
+        - python-pip
+
+- name: oh-my-zsh install 
+  hosts: localhost
+  connection: local
+  tags: zsh
+  tasks: 
+    - name: clone
+      git: 
+        clone: yes
+        dest: "~/.oh-my-zsh"
+        repo: "https://github.com/robbyrussell/oh-my-zsh.git"
+
+    - name: zshrc
+      file: src=/zsh/zshrc dest="~/.zshrc"
+    
+    - name: omz theme
+      copy: 
+        src: "zsh/david-clean.zsh-theme" 
+        dest: "~/.oh-my-zsh/themes/david-clean.zsh-theme"
+
+    - name: set shell 
+      user: name="{{ansible_user_id}}" shell="/bin/zsh"
+      become: yes
+
+- name: Atom install 
+  hosts: localhost
+  connection: local
+  tags: atom
+  tasks:    
+    - name: package download
+      get_url: 
+        url: "https://atom.io/download/deb"
+        dest: "~/Downloads/atom.deb"
+
+    - name: Install 
+      apt: 
+        deb: "/home/{{ansible_user_id}}/Downloads/atom.deb"
+      become: yes
+          
+    - name: Make subdir 
+      file: 
+        name: "/home/{{ansible_user_id}}/.atom"
+        state: directory 
+ 
+    - name: files copy
+      copy: 
+        src: "{{item}}"
+        dest:  "~/.atom/{{item}}"
+      with_items: 
+        - atom.cson
+        - toolbar.cson
+        - atom-packages.txt
+
+    - name: packages install 
+      shell: "apm install --packages-file ~/.atom/atom-packages.txt" 
+
+- name:  Other Configs
+  hosts: localhost 
+  connection: local 
+  tags: other
+  tasks:  
+    - name: vimrc 
+      copy: 
+        src: vimrc 
+        dest: "~/.vimrc"
+    
+    - name: Terminator directory
+      file: 
+        name: "~/.config/terminator"
+        state: directory 
+
+    - name: terminator config 
+      copy: 
+        src: "terminator-config"
+        dest: "~/.config/terminator/config"

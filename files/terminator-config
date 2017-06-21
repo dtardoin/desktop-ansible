@@ -1,0 +1,37 @@
+[global_config]
+  suppress_multiple_term_dialog = True
+  title_font = DejaVu Sans Mono 12
+[keybindings]
+  new_window = <Primary><Shift>i
+  switch_to_tab_1 = <Primary>1
+  switch_to_tab_10 = <Primary>0
+  switch_to_tab_2 = <Primary>2
+  switch_to_tab_3 = <Primary>3
+  switch_to_tab_4 = <Primary>4
+  switch_to_tab_5 = <Primary>5
+  switch_to_tab_6 = <Primary>6
+  switch_to_tab_7 = <Primary>7
+  switch_to_tab_8 = <Primary>8
+  switch_to_tab_9 = <Primary>9
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_image = None
+    font = Sans 10
+    foreground_color = "#afafaf"
+    login_shell = True
+  [[megatron]]
+    background_image = None
+    foreground_color = "#ff0800"
+  [[shockwave]]
+    background_image = None
+    foreground_color = "#d836c3"
+

@@ -1,0 +1,28 @@
+"*":
+  "ansible-vault":
+    path: "/usr/bin/ansible-vault"
+  core:
+    disabledPackages: [
+      "highlight-column"
+      "vim-mode-plus-ex-mode"
+      "vim-mode-plus"
+      "blame"
+      "remote-sync"
+    ]   
+    telemetryConsent: "no"
+  editor:
+    showIndentGuide: true
+    showInvisibles: true
+  "exception-reporting":
+    userId: "8d1ecaa5-0b78-8231-3bac-59a582abbbe6"
+  linter:
+    errorPanelHeight: 26
+  "split-diff":
+    ignoreWhitespace: true
+  "tool-bar":
+    position: "Right"
+  "vim-mode-plus":
+    stayOnDelete: true
+    stayOnYank: true
+  welcome:
+    showOnStartup: false
