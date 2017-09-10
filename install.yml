@@ -1,96 +1,125 @@
---- 
-- name: Default Packages 
+---
+- name: Default Packages
   connection: local
   hosts: localhost
   tasks:
     - name: Apt packages
-      apt: 
+      apt:
        name="{{item}}"
        state=present
       become: yes
       with_items:
-        - vim 
+        - vim
         - chromium-browser
         - terminator
         - zsh
-        - curl 
-        - wget 
+        - curl
+        - wget
         - git
         - python3
         - python-virtualenv
         - python-pip
+        - virtualbox
+        - virtualbox-dkms
+        - tlp
+        - tlp-rdw
 
-- name: oh-my-zsh install 
+- name: oh-my-zsh install
   hosts: localhost
   connection: local
   tags: zsh
-  tasks: 
+  tasks:
     - name: clone
-      git: 
+      git:
         clone: yes
         dest: "~/.oh-my-zsh"
         repo: "https://github.com/robbyrussell/oh-my-zsh.git"
 
     - name: zshrc
-      file: src=/zsh/zshrc dest="~/.zshrc"
-    
+      copy:
+        src: files/zsh/zshrc
+        dest: "~/.zshrc"
+
     - name: omz theme
-      copy: 
-        src: "zsh/david-clean.zsh-theme" 
+      copy:
+        src: "files/zsh/david-clean.zsh-theme"
         dest: "~/.oh-my-zsh/themes/david-clean.zsh-theme"
 
-    - name: set shell 
+    - name: set shell
       user: name="{{ansible_user_id}}" shell="/bin/zsh"
       become: yes
 
-- name: Atom install 
+- name: Atom install
   hosts: localhost
   connection: local
   tags: atom
-  tasks:    
+  tasks:
     - name: package download
-      get_url: 
+      get_url:
         url: "https://atom.io/download/deb"
         dest: "~/Downloads/atom.deb"
 
-    - name: Install 
-      apt: 
+    - name: Install
+      apt:
         deb: "/home/{{ansible_user_id}}/Downloads/atom.deb"
       become: yes
-          
-    - name: Make subdir 
-      file: 
+
+    - name: Make subdir
+      file:
         name: "/home/{{ansible_user_id}}/.atom"
-        state: directory 
- 
+        state: directory
+
     - name: files copy
-      copy: 
-        src: "{{item}}"
+      copy:
+        src: "files/atom/{{item}}"
         dest:  "~/.atom/{{item}}"
-      with_items: 
+      with_items:
         - atom.cson
         - toolbar.cson
         - atom-packages.txt
 
-    - name: packages install 
-      shell: "apm install --packages-file ~/.atom/atom-packages.txt" 
+    - name: packages install
+      shell: "apm install --packages-file ~/.atom/atom-packages.txt"
+
+- name: Install/configure Geeknote
+  hosts: localhost
+  connection: local
+  tags: geeknote
+  tasks:
+    - name: GK vars
+      include_vars: geeknote.yml
+    - name: Virtualenv
+      shell: "/usr/bin/virtualenv {{ansible_user_dir}}/{{gk_venv}}"
+    - name: Install GK, the manual way because the pip module forces "-e"
+      shell: "source ~/{{gk_venv}}/bin/activate && pip install {{gk_git}}"
+      args:
+        executable: "/bin/bash"
+    - name: GK Aliases
+      lineinfile:
+        path: "~/.zshrc"
+        line: "alias {{item.0}}=\"{{ansible_user_dir}}/{{item.1}}\""
+      with_items:
+          - "{{gk_aliases}}"
+
+
+
 
 - name:  Other Configs
-  hosts: localhost 
-  connection: local 
+  hosts: localhost
+  connection: local
   tags: other
-  tasks:  
-    - name: vimrc 
-      copy: 
-        src: vimrc 
+  tasks:
+    - name: vimrc
+      copy:
+        src: files/vimrc
         dest: "~/.vimrc"
-    
-    - name: Terminator directory
-      file: 
-        name: "~/.config/terminator"
-        state: directory 
 
-    - name: terminator config 
-      copy: 
-        src: "terminator-config"
+    - name: Terminator directory
+      file:
+        name: "~/.config/terminator"
+        state: directory
+
+    - name: terminator config
+      copy:
+        src: "files/terminator-config"
         dest: "~/.config/terminator/config"
