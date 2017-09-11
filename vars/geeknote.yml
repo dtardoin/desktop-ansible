@@ -1,8 +1,10 @@
 # Because of the CSRF token issue, here, don't install from head: 
 gk_git: "git+https://github.com/pipakin/geeknote.git"
 gk_venv: ".geeknote-venv"
-gk_exec: "{{gk_venv}}/bin/geeknote"
+gk_full: "{{gk_venv}}/bin/geeknote"s
+gk_exec: "geeknote" 
 gk_aliases:
+  - [ "geeknote", "{{gk_full}}" ]
   - [ "gk", "{{gk_exec}}" ]
   - ["gke", "{{gk_exec}} edit" ]
   - [ "gks", "{{gk_exec}} show" ]
