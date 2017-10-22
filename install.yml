@@ -97,7 +97,7 @@
     - name: GK Aliases
       lineinfile:
         path: "~/.zshrc"
-        line: "alias {{item.0}}=\"{{ansible_user_dir}}/{{item.1}}\""
+        line: "alias {{item.0}}=\"{{item.1}}\""
       with_items:
           - "{{gk_aliases}}"
 
