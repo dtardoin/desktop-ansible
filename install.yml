@@ -23,6 +23,7 @@
         - virtualbox-dkms
         - tlp
         - tlp-rdw
+        - tmux
 
 - name: oh-my-zsh install
   hosts: localhost
