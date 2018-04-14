@@ -8,9 +8,10 @@ export PATH="/home/$USERNAME/bin:/home/$USERNAME/Work/bin:/usr/local/sbin:/usr/l
 source $ZSH/oh-my-zsh.sh
 
 # tmux should be bottom (?)
-if [ $(tmux ls|grep -v "(attached)"|wc -l) -gt 0 ]; then 
-tmux at 
-else 
-tmux 
-fi 
-
+if [ -z "$SSH_CONNECTION" ]; then 
+  if [ $(tmux ls|grep -v "(attached)"|wc -l) -gt 0 ]; then 
+    tmux at 
+  else 
+    tmux 
+   fi 
+fi
