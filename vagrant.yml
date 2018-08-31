@@ -1,0 +1,6 @@
+- name: Install vagrant  machine 
+  hosts: all
+  roles: 
+    - { role: common, is_virtual: true }
+    - zsh  
+    - geeknote 

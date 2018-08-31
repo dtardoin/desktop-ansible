@@ -1,0 +1,6 @@
+# TODO 
+
+pull down dotfiles repo 
+Figure out how to manage that zshrc vs this one 
+crontab to add and commit zshrc (and other dotfiles) hourly?
+

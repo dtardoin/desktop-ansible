@@ -1,0 +1,8 @@
+export ZSH=/home/$USERNAME/.oh-my-zsh
+ZSH_THEME="david-clean"
+plugins=(git)
+
+
+export PATH="/home/$USERNAME/bin:/home/$USERNAME/Work/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/$USERNAME/.rvm/bin:/home/$USERNAME/.rvm/bin:/home/$USERNAME/.rvm/bin"
+
+source $ZSH/oh-my-zsh.sh

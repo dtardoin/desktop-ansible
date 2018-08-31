@@ -1,0 +1,12 @@
+# Because of the CSRF token issue, here, don't install from head: 
+gk_git: "git+https://github.com/jeffkowalski/geeknote.git"
+gk_venv: "{{ansible_user_dir}}/.geeknote-venv"
+gk_full: "{{gk_venv}}/bin/geeknote"
+gk_exec: "geeknote" 
+gk_aliases:
+  - [ "geeknote", "{{gk_full}}" ]
+  - [ "gk", "{{gk_exec}}" ]
+  - ["gke", "{{gk_exec}} edit" ]
+  - [ "gks", "{{gk_exec}} show" ]
+  - ["gkf", "{{gk_exec}} find" ]
+  - [ "gkh", "{{gk_exec}} --help" ]

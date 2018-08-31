@@ -1,0 +1,20 @@
+- name: clone
+  git:
+    clone: yes
+    dest: "~/.oh-my-zsh"
+    repo: "https://github.com/robbyrussell/oh-my-zsh.git"
+
+- name: zshrc
+  copy:
+    src: files/zsh/zshrc
+    dest: "~/.zshrc"
+
+- name: omz theme
+  copy:
+    src: "files/zsh/david-clean.zsh-theme"
+    dest: "~/.oh-my-zsh/themes/david-clean.zsh-theme"
+
+- name: set shell
+  user: name="{{ansible_user_id}}" shell="/bin/zsh"
+  become: yes3:31:57]
+

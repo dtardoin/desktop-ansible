@@ -1,0 +1,50 @@
+- name: Apt packages
+  apt:
+   name="{{item}}"
+   state=present
+   update_cache=yes
+  become: yes
+  with_items:
+    - vim
+    - chromium-browser
+    - terminator
+    - zsh
+    - curl
+    - wget
+    - git
+    - python3
+    - python-virtualenv
+    - python-pip
+    - tmux 
+
+- name: Bare Desktop packages 
+  apt:
+   name="{{item}}"
+   state=present
+   update_cache=yes
+  become: yes
+  with_items:
+    - virtualbox
+    - virtualbox-dkms
+    - tlp
+    - tlp-rdw
+  when: "not is_virtual|default(false)"
+
+- name: Gnome
+  apt: 
+     name="{{item}}"
+     state=present 
+  become: yes
+  with_items: 
+   - gnome 
+   - gdm
+
+- name: vimrc
+  copy:
+    src: files/vimrc
+    dest: "~/.vimrc"
+
+- name: tmux conf 
+  copy: 
+    src: files/tmux.conf 
+    dest: "~/.tmux.conf"

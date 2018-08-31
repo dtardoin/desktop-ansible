@@ -1,0 +1,17 @@
+- name: Virtualenv
+  shell: "/usr/bin/virtualenv -ppython2.7 {{gk_venv}}"
+  args:
+    chdir: "{{ansible_user_dir}}"
+  #shell: "/usr/local/bin/virtualenv {{ansible_user_dir}}/{{gk_venv}}" #osx
+- name: Install GK, the manual way because the pip module forces "-e"
+  shell: "{{gk_venv}}/bin/pip install {{gk_git}}"
+  args:
+    executable: "/bin/bash"
+- name: GK Aliases
+  lineinfile:
+    path: "~/.zshrc"
+    line: "alias {{item.0}}=\"{{item.1}}\""
+  with_items:
+      - "{{gk_aliases}}"
+
+
