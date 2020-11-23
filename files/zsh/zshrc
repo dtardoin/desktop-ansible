@@ -1,9 +1,9 @@
-export ZSH=/home/$USERNAME/.oh-my-zsh
+export ZSH=/Users/$USERNAME/.oh-my-zsh
 ZSH_THEME="david-clean"
 plugins=(git)
 
 
-export PATH="/home/$USERNAME/bin:/home/$USERNAME/Work/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/$USERNAME/.rvm/bin:/home/$USERNAME/.rvm/bin:/home/$USERNAME/.rvm/bin"
+export PATH="/Users/$USERNAME/bin:/Users/david.ardoin/Library/Python/2.7/bin:/Users/$USERNAME/Work/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/Users/$USERNAME/.rvm/bin:/Users/$USERNAME/.rvm/bin:/Users/$USERNAME/.rvm/bin:/Applications/Docker.app/Contents/Resources/bin:/Users/$USERNAME/bin:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -15,3 +15,103 @@ if [ -z "$SSH_CONNECTION" ]; then
     tmux 
    fi 
 fi
+alias geeknote="/Users/david.ardoin/.geeknote-venv/bin/geeknote"
+alias gk="geeknote"
+alias gke="geeknote edit"
+alias gks="geeknote show"
+alias gkf="geeknote find"
+alias gkh="geeknote --help"
+alias drop_infra="cd ~/Repositories/infra"
+alias drop_code="cd ~/Repositories/code"
+alias tf="terraform" 
+alias tfa="terraform apply" 
+alias tfp="terraform plan" 
+alias tfu="terraform force-unlock"
+alias tfc="terraform console"
+function aga() {
+}
+#terraform force-unlock $(tfp 2>&1|grep "ID:"|sed 's/  *ID:  *//')'
+alias tfss="terraform state show"
+alias tfsl="terraform state list"
+alias tfp="terraform plan"
+alias gpom="git pull origin master"
+alias gpco="gpc origin"
+alias wea="curl wttr.in/~Red+Bank+Tennessee"
+function tffu() {
+    terraform force-unlock $(tfp -target=shouldnot.exist 2>&1|grep "ID:"|sed "s/  *ID:  *//") 
+}
+function go-infra() {
+  if [ -n "$1" ]; then 
+      dir=$(find ~/Repositories/infra -name "$1*" -type dir -maxdepth 1)
+      if [ $(echo $dir|wc -l) -gt 1 ] || [ "${dir}" = "" ]; then 
+        echo "can't find that directory..."
+      else   
+        cd $dir
+      fi 
+  else 
+    cd ~/Repositories/infra
+  fi 
+}
+function go-apps() {
+  if [ -n "$1" ]; then 
+      dir=$(find ~/Repositories/apps -name "$1*" -type dir -maxdepth 1)
+      if [ $(echo $dir|wc -l) -gt 1 ] || [ "$dir" = "" ]; then 
+        echo "can't find that directory..."
+      else   
+        cd $dir
+      fi 
+  else
+    cd ~/Repositories/apps
+  fi
+}
+function gpc() { 
+    #if osx, then pbcoby
+    #else use xclip 
+    branch=""
+    if [[ -n "$2" ]]; then 
+      branch=$2
+    else
+      branch=$(git symbolic-ref --short HEAD)    
+    fi
+
+     git push $1 $branch 2>&1|tee ~/tmp/gp.output|grep -oe "https://[a-z/0-9_\.-]\+"|pbcopy && cat ~/tmp/gp.output
+}
+function kc-update() {
+    if [ "$1" = "local" ]; then 
+        kubectl config set-cluster docker-desktop
+    else  
+        aws --profile=$1 eks update-kubeconfig --name=$1
+    fi
+}
+function kc-name() {
+    kubectl config set-context --current --namespace=$1
+}
+
+alias tsh-login="tsh --proxy=teleport.production.qzhq.co:443 --user=davidardoin login"
+eval "$(direnv hook zsh)"
+if [ $(ps -ef|grep ssh-agent|wc -l) -ge 2 ]; then
+    export SSH_AUTH_SOCK=$(cat ~/tmp/.ssh-sock)
+else 
+    eval $(ssh-agent -s) 
+    ssh-add 
+    ssh-add ~/.ssh/aws_infra
+    ssh-add ~/.ssh/integration-buildkite
+    echo $SSH_AUTH_SOCK > ~/tmp/.ssh-sock
+fi 
+
+# JIRA 
+eval "$(jira --completion-script-bash)"
+alias jh="jira --help|less"
+alias jlp='jira list -p PLAT'
+alias jlb='jira list -p PLAT --status="Backlog"'
+alias jlip='jira list -p PLAT --status="In Progress"'
+alias jlir='jira list -p PLAT --status="In Review"'
+alias jlod='jira list -p PLAT --status="On Deck"'
+alias jtir='jira transition "In Review"'
+alias jtnt='jira transition "Needs Testing"'
+alias jc='jira close'
+
+function jtip () {
+    jira transition "In Progress" $1;
+    jira assign $1 david.ardoin
+}
