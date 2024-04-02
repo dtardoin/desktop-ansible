@@ -1,0 +1,33 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Diffy",
+		"Dockerfile Syntax Highlighting",
+		"FileBrowser",
+		"FileDiffs",
+		"Git",
+		"Git blame",
+		"GitGutter",
+		"LSP-terraform",
+		"NeoVintageous",
+		"NeoVintageousToggle",
+		"Origami",
+		"Package Control",
+		"SingleTrailingNewLine",
+		"sublack",
+		"SublimeLinter",
+		"SublimeLinter-contrib-terraform",
+		"SublimeLinter-contrib-yaml-lint",
+		"SublimeLinter-contrib-yamllint",
+		"SublimeLinter-shellcheck",
+		"Sublimerge 3",
+		"Terrafmt",
+		"Terraform",
+		"Tpl",
+		"TypeScript Syntax",
+	],
+}

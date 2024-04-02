@@ -1,0 +1,4 @@
+// Any settings in this file overrides the default ones
+{
+	"cmd" : ["/Users/davidardoin/.asdf/shims/terraform", "fmt", "-"]
+}

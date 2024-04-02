@@ -1,0 +1,26 @@
+{
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg"
+	],
+	"font_size": 13,
+	"ignored_packages":
+	[
+		"Six",
+		"Vintage",
+		"Vintageous",
+	],
+	"neovintageous_build_version": 13200,
+	"preview_on_click": false,
+	"rulers":
+	[
+		80
+	],
+ 	"dired_show_hidden_files": false, 
+ 	"single_pane": true,
+	"vintageous_use_super_keys": false,
+	"update_check": true,
+	"translate_tabs_to_spaces": true,
+}

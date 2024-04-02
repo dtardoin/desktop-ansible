@@ -1,0 +1,32 @@
+{
+	"dired_jump_points":
+	{
+		/*"TF - ST": "/Users/davidardoin/Repositories/"*/
+		/*"TF - MT": "/Users/davidardoin/Repositories/",*/
+		"MT Terraform": "/Users/davidardoin/Repositories/dbt-cloud-infra-terraform/",
+		"ST Terraform ": "/Users/davidardoin/Repositories/dbt-cloud-infra-single-tenant/",
+		/*"Helm Values": "/Users/davidardoin/Repositories/",*/
+		/*"Helm Charts": "/Users/davidardoin/Repositories/",*/
+		"Helm Values": "/Users/davidardoin/Repositories/dbt-cloud-helm-values/",
+		"Helm Charts": "/Users/davidardoin/Repositories/helm-charts/",
+		/*"MTPL": "/Users/davidardoin/Repositories/terraform-multi-tenant-privatelink/",*/
+		/*"Notes": "/",*/
+		"Notes": "/Volumes/Macintosh HD/Users/davidardoin/Notes/",
+		"Repositories": "/Users/davidardoin/Repositories/",
+		"Azure Parity": "/Users/davidardoin/Repositories/azure-parity-infra-terraform/",
+		"Azurerm Module": "/Users/davidardoin/Repositories/terraform-azurerm-dbt-cloud-single-tenant/",
+		"Datadog": "/Users/davidardoin/Repositories/terraform-datadog/",
+		/*"helm-releases": "/Users/davidardoin/Repositories/helm-releases/",*/
+		"Helm Releases": "/Users/davidardoin/Repositories/helm-releases/",
+		"Private Link": "/Users/davidardoin/Repositories/terraform-multi-tenant-privatelink/",
+		"dev-tools": "/Users/davidardoin/Repositories/dev-tools/",
+		"TF Modules": "/Users/davidardoin/Repositories/dbt-cloud-infra-terraform-modules/",
+	},
+	"dired_to_copy":
+	[
+		"/Users/davidardoin/Repositories/dev-tools/auto-eeny/.env"
+	],
+	"dired_to_move":
+	[
+	],
+}

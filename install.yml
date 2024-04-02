@@ -11,7 +11,6 @@
       with_items:
         - vim
         - chromium-browser
-        - terminator
         - zsh
         - curl
         - wget
@@ -24,6 +23,55 @@
         - tlp
         - tlp-rdw
         - tmux
+
+- name: Default homebrew packages mac
+  hosts: install
+  tags: mac
+  tasks:
+    - name: Install homebrew packages
+      shell: brew install {{item}}
+      with_items:
+        - asdf
+        - awscli
+        - azure-cli
+        - coreutils
+        - devspace
+        - direnv
+        - findutils
+        - gnu-sed
+        - gnupg
+        - helm
+        - helmfile
+        - jq
+        - k9s
+        - kubent
+        - nmap
+        - poetry
+        - pyyaml
+        - sqlite
+        - telnet
+        - tflint
+        - tmux
+        - virtualenv
+        - yamllint
+        - yq
+
+    - name: Download dmgs
+      hosts: all
+      tags: mac
+      tasks:
+        - name: download sublime
+          get_url: https://download.sublimetext.com/Sublime%20Text%20Build%203211.dmg
+          dest: ~/Downloads/sublime.dmg
+
+        - name: Download Joplin m1
+          get_url: https://objects.joplinusercontent.com/v2.14.20/Joplin-2.14.20-arm64.DMG
+          dest: ~/Downloads/joplin.dmg
+
+        - name: timeular m1
+          get_url: https://releases.timeular.com/mac/production/Timeular-m1.dmg
+          dest: ~/Downloads/timeular.dmg
+
 
 - name: oh-my-zsh install
   hosts: all
@@ -45,64 +93,21 @@
         src: "files/zsh/david-clean.zsh-theme"
         dest: "~/.oh-my-zsh/themes/david-clean.zsh-theme"
 
+    - name: omz theme
+      copy:
+        src: "files/zsh/clean.zsh-theme"
+        dest: "~/.oh-my-zsh/themes/work-clean.zsh-theme"
+
+
     - name: set shell
       user: name="{{ansible_user_id}}" shell="/bin/zsh"
       become: yes
 
-# - name: Atom install
-#   hosts: all
-#   tags: atom
-#   tasks:
-#     - name: package download
-#       get_url:
-#         url: "https://atom.io/download/deb"
-#         dest: "~/Downloads/atom.deb"
-
-#     - name: Install
-#       apt:
-#         deb: "/home/{{ansible_user_id}}/Downloads/atom.deb"
-#       become: yes
-
-#     - name: Make subdir
-#       file:
-#         name: "/home/{{ansible_user_id}}/.atom"
-#         state: directory
-
-#     - name: files copy
-#       copy:
-#         src: "files/atom/{{item}}"
-#         dest:  "~/.atom/{{item}}"
-#       with_items:
-#         - atom.cson
-#         - toolbar.cson
-#         - atom-packages.txt
-
-#     - name: packages install
-#       shell: "apm install --packages-file ~/.atom/atom-packages.txt"
-
-- name: Install/configure Geeknote
-  hosts: localhost
-  connection: local
-  tags: geeknote
+- name: Joplin install
+  hosts: all
+  tags: mac
   tasks:
-    - name: GK vars
-      include_vars: geeknote.yml
-    - name: Virtualenv
-      shell: "/usr/bin/virtualenv -ppython2.7 {{gk_venv}}"
-      #shell: "/usr/local/bin/virtualenv {{ansible_user_dir}}/{{gk_venv}}" #osx
-      args: 
-        chdir: "{{ansible_user_dir}}"
-    - name: Install GK, the manual way because the pip module forces "-e"
-      shell: "{{gk_venv}}/bin/pip install {{gk_git}}"
-      args:
-        executable: "/bin/bash"
-    - name: GK Aliases
-      lineinfile:
-        path: "~/.zshrc"
-        line: "alias {{item.0}}=\"{{item.1}}\""
-      with_items:
-          - "{{gk_aliases}}"
-
+    - name: install joplin
 
 
 
@@ -114,16 +119,6 @@
       copy:
         src: files/vimrc
         dest: "~/.vimrc"
-
-    - name: Terminator directory
-      file:
-        name: "~/.config/terminator"
-        state: directory
-
-    - name: terminator config
-      copy:
-        src: "files/terminator-config"
-        dest: "~/.config/terminator/config"
 
     - name: tmux config 
       copy: 

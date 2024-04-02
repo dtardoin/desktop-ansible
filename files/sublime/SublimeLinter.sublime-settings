@@ -1,0 +1,10 @@
+// SublimeLinter Settings - User
+{
+    // "debug": true,
+    
+    "linters": {
+        // "terraform" : {
+        //     "executable" : "~/.asdf/shims/tflint"
+        // }
+    }
+}

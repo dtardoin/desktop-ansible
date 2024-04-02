@@ -1,0 +1,69 @@
+{
+	"$schema": "https://joplinapp.org/schema/settings.json",
+	"locale": "en_GB",
+	"api.token": "0b45fbe8b5ffcede7f2e9224d1b10c2316c6c7d7bf9cd4870f3730cecab13a1fc902f1eacb1c537b3bb075b5bf2efb51298fc984bf67e4eaf2961a6647a8d2d4",
+	"markdown.plugin.softbreaks": false,
+	"markdown.plugin.typographer": false,
+	"spellChecker.languages": [
+		"en-US"
+	],
+	"noteVisiblePanes": [
+		"editor"
+	],
+	"ui.layout": {
+		"key": "root",
+		"children": [
+			{
+				"key": "sideBar",
+				"width": 180,
+				"visible": false
+			},
+			{
+				"key": "noteList",
+				"width": 251,
+				"visible": false
+			},
+			{
+				"key": "editor",
+				"visible": true,
+				"width": 751
+			},
+			{
+				"key": "plugin-view-joplin.plugin.note.tabs-note.tabs.panel",
+				"context": {
+					"pluginId": "joplin.plugin.note.tabs"
+				},
+				"visible": true
+			},
+			{
+				"key": "plugin-view-com.septemberhx.pluginBundle-sidebar_bundle_panel",
+				"context": {
+					"pluginId": "com.septemberhx.pluginBundle"
+				},
+				"visible": false
+			}
+		],
+		"visible": true
+	},
+	"editor.codeView": true,
+	"dateFormat": "MM/DD/YYYY",
+	"timeFormat": "h:mm A",
+	"editor": "\"/Applications/Sublime\\ Text.app/Contents/MacOS/sublime_text\"",
+	"sync.target": 8,
+	"sync.8.forcePathStyle": false,
+	"notes.sortOrder.reverse": true,
+	"notes.perFieldReverse": {
+		"user_updated_time": true,
+		"user_created_time": true,
+		"title": false,
+		"order": false
+	},
+	"richTextBannerDismissed": true,
+	"editor.keyboardMode": "vim",
+	"windowContentZoomFactor": 90,
+	"themeAutoDetect": true,
+	"theme": 2,
+	"sync.8.path": "",
+	"sync.8.region": "us-east-1",
+	"sync.8.username": ""
+}
