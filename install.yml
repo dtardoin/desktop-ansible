@@ -1,6 +1,6 @@
 ---
 - name: Default Packages
-  hosts: all
+  hosts: localhost
   tags: ubuntu 
   tasks:
     - name: Apt packages
@@ -25,11 +25,11 @@
         - tmux
 
 - name: Default homebrew packages mac
-  hosts: install
+  hosts: localhost
   tags: mac
   tasks:
-    - name: Install homebrew packages
-      shell: brew install {{item}}
+    - name: Install host homebrew packages
+      shell: /opt/homebrew/bin/brew install {{item}}
       with_items:
         - asdf
         - awscli
@@ -50,31 +50,45 @@
         - pyyaml
         - sqlite
         - telnet
+        - teleport
         - tflint
         - tmux
         - virtualenv
+        - watch
         - yamllint
         - yq
 
-    - name: Download dmgs
-      hosts: all
-      tags: mac
-      tasks:
-        - name: download sublime
-          get_url: https://download.sublimetext.com/Sublime%20Text%20Build%203211.dmg
-          dest: ~/Downloads/sublime.dmg
+- name: Download dmgs
+  hosts: localhost
+  tags: mac
+  tasks:
+    - name: download sublime
+      get_url: 
+        url: https://download.sublimetext.com/Sublime%20Text%20Build%203211.dmg
+        dest: ~/Downloads/sublime.dmg
 
-        - name: Download Joplin m1
-          get_url: https://objects.joplinusercontent.com/v2.14.20/Joplin-2.14.20-arm64.DMG
-          dest: ~/Downloads/joplin.dmg
+    - name: Download Joplin m1
+      get_url: 
+        url: https://objects.joplinusercontent.com/v2.14.20/Joplin-2.14.20-arm64.DMG
+        dest: ~/Downloads/joplin.dmg
 
-        - name: timeular m1
-          get_url: https://releases.timeular.com/mac/production/Timeular-m1.dmg
-          dest: ~/Downloads/timeular.dmg
+    - name: timeular m1
+      get_url: 
+         url: https://releases.timeular.com/mac/production/Timeular-m1.dmg
+         dest: ~/Downloads/timeular.dmg
+
+    # TODO:
+    # Rectangle
+    # firefox
+    # Docker-desktop: https://desktop.docker.com/mac/main/arm64/Docker.dmg?utm_source=docker&utm_medium=webreferral&utm_campaign=dd-smartbutton&utm_location=module&_gl=1*okw98w*_ga*MTkwNDYwMjg5Ny4xNzEyMDgxMTUx*_ga_XJWPQMJYHQ*MTcxMjA4MTE1MC4xLjEuMTcxMjA4MTE1NC41Ni4wLjA.
+    # Spotify
+
+    # TODO: disable hold key for accented mark
+    # defaults write -g ApplePressAndHoldEnabled -bool false
 
 
 - name: oh-my-zsh install
-  hosts: all
+  hosts: localhost
   tags: zsh
   tasks:
     - name: clone
@@ -103,16 +117,16 @@
       user: name="{{ansible_user_id}}" shell="/bin/zsh"
       become: yes
 
-- name: Joplin install
-  hosts: all
-  tags: mac
-  tasks:
-    - name: install joplin
+#- name: Joplin instlocalhost
+#  hosts: localhost
+#  tags: mac
+#  tasks:
+#    - name: instlocalhost joplin
 
 
 
 - name:  Other Configs
-  hosts: all
+  hosts: localhost
   tags: other
   tasks:
     - name: vimrc
